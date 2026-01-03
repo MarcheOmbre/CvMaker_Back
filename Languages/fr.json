@@ -1,0 +1,20 @@
+﻿{
+  "ContactTypes": [
+    "Email",
+    "Téléphone",
+    "Adresse"
+  ],
+  "LanguageLevels": [
+    "Débutant",
+    "Intermédiaire",
+    "Avancé",
+    "Natif"
+  ],
+  "AboutMeTitle": "À propos de moi",
+  "SkillsTitle": "Compétences",
+  "WorkTitle": "Expériences professionnelles",
+  "EducationTitle": "Éducation",
+  "LanguagesTitle": "Langues",
+  "ProjectsTitle": "Projects",
+  "HobbiesTitle": "Centres d'intérêt"
+}

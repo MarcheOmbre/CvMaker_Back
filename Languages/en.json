@@ -1,0 +1,20 @@
+﻿{
+  "ContactTypes": [
+    "Email",
+    "Phone",
+    "Address"
+  ],
+  "LanguageLevels": [
+    "Beginner",
+    "Intermediate",
+    "Advanced",
+    "Native"
+  ],
+  "AboutMeTitle": "About me",
+  "SkillsTitle": "Skills",
+  "WorkTitle": "Work",
+  "EducationTitle": "Education",
+  "LanguagesTitle": "Languages",
+  "ProjectsTitle": "Projects",
+  "HobbiesTitle": "Hobbies"
+}

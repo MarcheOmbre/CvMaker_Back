@@ -1,0 +1,116 @@
+﻿H1 {
+    text-align: center;
+}
+
+#form {
+    display: grid;
+    grid-template-columns: 100px 400px;
+    grid-gap: 15px;
+    justify-content: center;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+#photo {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+#photo Img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+
+#contacts, #links, #skills, #works, #educations, #languages, #projects, #hobbies {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 5px;
+}
+
+.contact_item, .link_item {
+    display: grid;
+    grid-template-columns: 100px auto 25px;
+    grid-gap: 5px;
+}
+
+.skill_item {
+    display: grid;
+    grid-template-columns: auto 25px;
+    grid-gap: 5px;
+}
+
+#about-me_input {
+    width: 100%;
+    height: 100px;
+}
+
+.work_item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.work_item .title-div {
+    display: grid;
+    grid-template-columns: 100px auto 25px;
+    grid-gap: 5px;
+}
+
+.work_item .corporation-div {
+    display: grid;
+    grid-template-columns: 100px auto;
+    grid-gap: 5px;
+}
+
+.work_item .date-div {
+    display: grid;
+    grid-template-columns: 100px auto auto;
+    grid-gap: 5px;
+}
+
+.work_item textarea {
+    height: 100px;
+}
+
+.education_item {
+    display: grid;
+    grid-template-columns: 100px auto 25px;
+    grid-gap: 5px;
+}
+
+.language_item {
+    display: grid;
+    grid-template-columns: auto 100px 25px;
+    grid-gap: 5px;
+}
+
+.project_item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.project_item .title-div {
+    display: grid;
+    grid-template-columns: 100px auto 25px;
+    grid-gap: 5px;
+}
+
+.project_item .date-div {
+    display: grid;
+    grid-template-columns: 100px auto;
+    grid-gap: 5px;
+}
+
+.project_item textarea {
+    height: 100px;
+}
+
+.hobby_item {
+    display: grid;
+    grid-template-columns: auto 25px;
+    grid-gap: 5px;
+}

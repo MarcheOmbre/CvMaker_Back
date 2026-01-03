@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html>
+
+<HTML lang="en">
+
+<HEAD>
+
+    <title>Generator</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./style.css">
+    <script src="../Scripts/TypesChecker.js" type="text/javascript"></script>
+    <script src="../Scripts/FilesConverter.js" type="text/javascript"></script>
+    <script type="text/javascript" src="./script.js" defer></script>
+
+</HEAD>
+
+<BODY>
+
+<div id="form">
+
+    <label for="system-language">Name:</label>
+    <select id="system-language">
+        <option value="../Languages/en.json">English</option>
+        <option value="../Languages/fr.json">French</option>
+    </select>
+
+    <label for="photo-input">Photo:</label>
+    <div id="photo">
+    <input type ="file" id="photo-input" accept="image/*" />
+    <img src="" id ="photo-reader" alt="photo preview"/>
+    </div>
+    
+    <label for="name_input">Name:</label>
+    <input type="text" id="name_input" placeholder="Name" aria-label="Name"/>
+
+    <label for="profession_input">Profession:</label>
+    <input type="text" id="profession_input" placeholder="Profession" aria-label="Profession"/>
+
+    <label for="contacts_input">Contacts:</label>
+    <div id="contacts_input">
+        <div id="contacts"></div>
+        <button id="add-contact">Add contact</button>
+    </div>
+
+    <label for="links_input">Links:</label>
+    <div id="links_input">
+        <div id="links"></div>
+        <button id="add-link">Add links</button>
+    </div>
+
+    <label for="about-me_input">About me:</label>
+    <div>
+        <textarea id="about-me_input" aria-label="About Me"></textarea>
+    </div>
+
+    <label for="skills_input">Skills:</label>
+    <div id="skills_input">
+        <div id="skills"></div>
+        <button id="add-skill">Add skill</button>
+    </div>
+
+    <label for="works_input">Works:</label>
+    <div id="works_input">
+        <div id="works"></div>
+        <button id="add-work">Add work</button>
+    </div>
+
+    <label for="educations_input">Educations:</label>
+    <div id="educations_input">
+        <div id="educations"></div>
+        <button id="add-education">Add education</button>
+    </div>
+
+    <label for="languages_input">Languages:</label>
+    <div id="languages_input">
+        <div id="languages"></div>
+        <button id="add-language">Add language</button>
+    </div>
+
+    <label for="projects_input">Projects:</label>
+    <div id="projects_input">
+        <div id="projects"></div>
+        <button id="add-project">Add project</button>
+    </div>
+
+    <label for="hobbies_input">Hobbies</label>
+    <div id="hobbies_input">
+        <div id="hobbies"></div>
+        <button id="add-hobby">Add hobby</button>
+    </div>
+
+    <button id="generate_button">Download</button>
+</div>
+
+</BODY>
+
+</HTML>
+
+<!DOCTYPE html>
