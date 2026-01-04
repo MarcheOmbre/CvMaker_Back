@@ -141,6 +141,8 @@ class EditorHandler {
             
             dataJson.Contacts.forEach(element => {this.#addContact(element.type, element.value)});
 
+            dataJson.Links.forEach(element => {this.#addLink(element.name, element.value)});
+            
             dataJson.WorkBlocs.forEach(element => this.#addWork(element.name, element.corporation, element.fromDate,
                 element.toDate, element.description));
 
