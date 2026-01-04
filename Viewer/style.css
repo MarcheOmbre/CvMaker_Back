@@ -1,0 +1,136 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+body{
+    padding : 10px;
+}
+
+h1{
+    font-family: "Lato", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+h2{
+    font-family: "Epilogue", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+h3 {
+    font-family: "Lato", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 11px;
+}
+
+h4 {
+    font-family: "Lato", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 10px;
+    margin-bottom: 5px;
+}
+
+li, p, .education_item h4{
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 10px;
+    line-height: 16px;
+}
+
+#header_contacts_list{
+    margin-bottom: 5px;
+}
+
+#header_photo{
+    float: right;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+#header_contacts_list{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 15px;
+    list-style: none;
+}
+
+.header_contacts_item + .header_contacts_item {
+    padding-left: 10px;
+    border-left: 1px solid darkgray;
+}
+
+#header_links_list{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 5px;
+    list-style: none;
+    justify-items: flex-start;
+    align-items: baseline;
+    margin-bottom: 10px;
+}
+
+.header_links_item{
+    padding: 2px;
+    background-color: #ecf3ff;
+}
+
+section{
+    width: 100%;
+}
+
+section .title-parent{
+    background-color: #ecf3ff;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+    max-width: 100%;
+    margin-top : 4px;
+    margin-bottom : 4px;
+}
+
+section .content ul, ul.content{
+    padding-left : 20px;
+}
+
+.work_bloc_header, .education_item, .project_header{
+    display: flex;
+    flex-direction: row;    
+    gap: 15px;
+    justify-items: flex-start;
+    align-items: baseline
+}
+
+.work_bloc_header p, .education_item .education_bloc_date, .project_header p{
+    padding-left: 10px;
+    border-left: 1px solid darkgray;
+}
+
+.work_item + .work_item, .project_item + .project_item {
+    padding-top: 5px;
+}
+
+#languages ul, #hobbies ul{
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    justify-items: flex-start;
+    align-items: baseline
+}
