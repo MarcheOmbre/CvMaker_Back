@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="329dc7dc-9203-4531-9138-69e17ad496cc" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Back/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Back/Controllers/AuthentificationController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Back/Controllers/UserController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Back/Dtos/CreateUserDto.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Back/Dtos/UserLoginDto.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Back/Dtos/UserRegistrationDto.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Back/Models/AuthentificationUser.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Back/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Generator/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Generator/script.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Generator/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Languages/en.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Languages/fr.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scripts/FilesConverter.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scripts/TypesChecker.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Viewer/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Viewer/script.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Viewer/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/script.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/style.css" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+        <option value="CSS File" />
+        <option value="JSON File" />
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;MarcheOmbre&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/MarcheOmbre/CvMaker.git&quot;,
+    &quot;accountId&quot;: &quot;f3e2a88e-f329-4a26-b3c7-631f1d414a0f&quot;
+  }
+}</component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$USER_HOME$/Desktop/Cvs/CV_FR_Fullstack_Data.json" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/Downloads/CV_data (14).json" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/Downloads/CV_data_fr_GameDeveloper.json" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Back/Controllers/AuthentificationController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Back/Controllers/UserController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Back/Dtos/CreateUserDto.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Back/Dtos/UserLoginDto.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Back/Dtos/UserRegistrationDto.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Back/Helpers/Constants.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Back/Helpers/EmailHelper.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Back/Helpers/PasswordHelper.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Back/Helpers/TokenHelper.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Back/Models/AuthentificationUser.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Back/Program.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://D:/Autres/Projets/CV Builder/Languages/en.json" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://D:/Autres/Projets/CV Builder/Languages/fr.json" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
+  <component name="ProjectId" id="37YvRo7QBuw3IXRjUE8TCz5DryP" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="329dc7dc-9203-4531-9138-69e17ad496cc" name="Changes" comment="" />
+      <created>1767092814693</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1767092814693</updated>
+      <workItem from="1767092816587" duration="44538000" />
+      <workItem from="1767162638831" duration="1855000" />
+      <workItem from="1767165140979" duration="6271000" />
+      <workItem from="1767195116162" duration="9794000" />
+      <workItem from="1767362386798" duration="17450000" />
+      <workItem from="1767385346390" duration="21610000" />
+      <workItem from="1767520152037" duration="297000" />
+      <workItem from="1767520480332" duration="23634000" />
+      <workItem from="1767624183332" duration="10000" />
+      <workItem from="1767624351409" duration="6000" />
+      <workItem from="1767624443796" duration="18000" />
+      <workItem from="1767624516563" duration="3000" />
+      <workItem from="1767624595801" duration="193000" />
+      <workItem from="1767624885522" duration="872000" />
+      <workItem from="1767628229066" duration="1846000" />
+      <workItem from="1767696195293" duration="167000" />
+      <workItem from="1767872000992" duration="18734000" />
+    </task>
+    <task id="LOCAL-00001" summary="First commit&#10;&#10;- Add multilingual support with English (`en.json`) and French (`fr.json`) language files.  &#10;- Create a `Generator` for building CVs, supporting photo, name, profession, contacts, links, about me, skills, work, education, languages, projects, and hobbies.  &#10;- Develop a `Viewer` to display the generated CV.  &#10;- Include reusable utilities like `FilesConverter.js` for base64 conversion of files.  &#10;- Structured project with modular, scalable HTML, CSS, and JavaScript files.">
+      <option name="closed" value="true" />
+      <created>1767459610075</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1767459610075</updated>
+    </task>
+    <task id="LOCAL-00002" summary="fix bugs,&#10;add css to the cv generation">
+      <option name="closed" value="true" />
+      <created>1767560805214</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1767560805214</updated>
+    </task>
+    <task id="LOCAL-00003" summary="fix bugs,&#10;add css to the cv generation">
+      <option name="closed" value="true" />
+      <created>1767564665603</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1767564665603</updated>
+    </task>
+    <task id="LOCAL-00004" summary="fix bugs,&#10;add css to the cv generation">
+      <option name="closed" value="true" />
+      <created>1767569285655</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1767569285655</updated>
+    </task>
+    <task id="LOCAL-00005" summary="fix bugs,&#10;add css to the cv generation">
+      <option name="closed" value="true" />
+      <created>1767569291959</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1767569291959</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Add a language level&#10;Minify CSS&#10;Add drag and drop function for the generator (to allow ordering)">
+      <option name="closed" value="true" />
+      <created>1767965200115</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1767965200115</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
+  <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
+  <component name="VcsManagerConfiguration">
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+    <MESSAGE value="First commit&#10;&#10;- Add multilingual support with English (`en.json`) and French (`fr.json`) language files.  &#10;- Create a `Generator` for building CVs, supporting photo, name, profession, contacts, links, about me, skills, work, education, languages, projects, and hobbies.  &#10;- Develop a `Viewer` to display the generated CV.  &#10;- Include reusable utilities like `FilesConverter.js` for base64 conversion of files.  &#10;- Structured project with modular, scalable HTML, CSS, and JavaScript files." />
+    <MESSAGE value="fix bugs,&#10;add css to the cv generation" />
+    <MESSAGE value="Add a language level&#10;Minify CSS&#10;Add drag and drop function for the generator (to allow ordering)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add a language level&#10;Minify CSS&#10;Add drag and drop function for the generator (to allow ordering)" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
+          <properties exception="System.OperationCanceledException" breakIfHandledByOtherCode="false" displayValue="System.OperationCanceledException" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
+          <properties exception="System.Threading.Tasks.TaskCanceledException" breakIfHandledByOtherCode="false" displayValue="System.Threading.Tasks.TaskCanceledException" />
+          <option name="timeStamp" value="2" />
+        </breakpoint>
+        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
+          <properties exception="System.Threading.ThreadAbortException" breakIfHandledByOtherCode="false" displayValue="System.Threading.ThreadAbortException" />
+          <option name="timeStamp" value="3" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
