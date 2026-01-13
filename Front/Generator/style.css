@@ -23,6 +23,14 @@
     border-radius: 50%;
 }
 
+#alert {
+    position: fixed;
+    width: 100%;
+    text-align: center;
+    bottom: 10px;
+    z-index: 1000;
+}
+
 .draggableDiv{
     display: flex;
     flex-direction: row;
@@ -92,4 +100,10 @@
 
 .project_item textarea {
     height: 100px;
+}
+
+#buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }

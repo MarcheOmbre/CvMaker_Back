@@ -10,7 +10,7 @@
     async #initialize(dataJson) {
 
         this.#dataJson = dataJson;
-        this.#systemJson = await fetch(this.#dataJson.SystemLanguage).then(response => response.json());
+        this.#systemJson = await fetch(this.#dataJson.content.SystemLanguage).then(response => response.json());
 
     }
 
@@ -31,17 +31,17 @@
 
     #generateCvHeader() {
 
-        document.getElementById("header_name").textContent = this.#dataJson.Name;
-        document.getElementById("header_profession").textContent = this.#dataJson.Profession;
+        document.getElementById("header_name").textContent = this.#dataJson.content.Name;
+        document.getElementById("header_profession").textContent = this.#dataJson.content.Profession;
 
-        if (isString(this.#dataJson.Photo) && this.#dataJson.Photo.length > 0) {
-            document.getElementById("header_photo").src = this.#dataJson.Photo;
+        if (isString(this.#dataJson.image) && this.#dataJson.image.length > 0) {
+            document.getElementById("header_photo").src = this.#dataJson.image;
         }
 
 
         // Generate contacts
         const contactsDivision = document.getElementById("header_contacts_list");
-        this.#dataJson.Contacts.forEach(element => {
+        this.#dataJson.content.Contacts.forEach(element => {
             const li = document.createElement("li");
             li.classList.add("header_contacts_item");
             li.textContent = `${element.value}`;
@@ -50,7 +50,7 @@
 
         // Generate links
         const linksDivision = document.getElementById("header_links_list");
-        this.#dataJson.Links.forEach((element) => {
+        this.#dataJson.content.Links.forEach((element) => {
             const li = document.createElement("li");
             li.classList.add("header_links_item");
             li.innerHTML = element.name + ": " + element.value;
@@ -60,13 +60,13 @@
     }
 
     #generateCvAboutMe() {
-        this.#fillSection("about-me", this.#systemJson.AboutMeTitle, content => content.innerHTML = this.#dataJson.AboutMe)
+        this.#fillSection("about-me", this.#systemJson.AboutMeTitle, content => content.innerHTML = `<p>${this.#dataJson.content.AboutMe}</p>`)
     }
 
     #generateCvSkills() {
 
         this.#fillSection("skills", this.#systemJson.SkillsTitle, content =>
-            this.#dataJson.Skills.forEach(element => {
+            this.#dataJson.content.Skills.forEach(element => {
                 const li = document.createElement("li");
                 li.classList.add("skills_item");
                 li.innerHTML = element;
@@ -78,14 +78,37 @@
     #generateCvWork() {
 
         this.#fillSection("work", this.#systemJson.WorkTitle, content => {
-            this.#dataJson.WorkBlocs.forEach(element => {
+            this.#dataJson.content.WorkBlocs.forEach(element => {
+
+                // Format date
+                const fromDate = new Date(element.fromDate);
+                const toDate = new Date(element.toDate);
+                
+                // Format month to force xx/yyyy format
+                let month = (fromDate.getMonth() + 1).toString();
+                if(month.length === 1)
+                    month = "0" + month;
+                
+                let stringDate = isDate(fromDate) ? `${month}/${fromDate.getFullYear()}` : "";
+                if(isDate(toDate)){
+                    if(stringDate !== "")
+                        stringDate += " - ";
+
+                    // Format month to force xx/yyyy format
+                    month = (toDate.getMonth() + 1).toString();
+                    if(month.length === 1)
+                        month = "0" + month;
+                    
+                    stringDate += `${month}/${toDate.getFullYear()}`;
+                }
+                
                 const div = document.createElement("div");
                 div.classList.add("work_item");
                 div.innerHTML = `
             <div class ="work_bloc_header">
                 <h4 class="work_bloc_title">${element.name}</h4>
                 <p class="work_bloc_corporation">${element.corporation}</p>
-                <p class="work_bloc_date">${new Date(element.fromDate).getMonth()}/${new Date(element.fromDate).getFullYear()} - ${new Date(element.toDate).getMonth()}/${new Date(element.toDate).getFullYear()}</p>
+                <p class="work_bloc_date">${stringDate}</p>
             </div>
             <p class="work_bloc_description">${element.description}</p>
         `;
@@ -98,12 +121,12 @@
     #generateCvEducation() {
 
         this.#fillSection("education", this.#systemJson.EducationTitle, content => {
-            this.#dataJson.EducationBlocs.forEach(element => {
+            this.#dataJson.content.EducationBlocs.forEach(element => {
                 const div = document.createElement("div");
                 div.classList.add("education_item");
                 div.innerHTML = `
             <h4 class="education_bloc_title">${element.name}</h4>
-            <p class="education_bloc_date">${new Date(element.date).getFullYear()}</p>
+            <p class="education_bloc_date">${isString(element.date) ? new Date(element.date).getFullYear() : ""}</p>
         `;
                 content.appendChild(div);
             })
@@ -114,7 +137,7 @@
     #generateCvLanguage() {
 
         this.#fillSection("languages", this.#systemJson.LanguagesTitle, content => {
-            this.#dataJson.Languages.forEach(element => {
+            this.#dataJson.content.Languages.forEach(element => {
                 const li = document.createElement("li");
                 li.classList.add("languages_item");
                 li.textContent = `${element.name} (${this.#systemJson.LanguageLevels[element.level]})`;
@@ -127,13 +150,13 @@
     #generateCvProjects() {
 
         this.#fillSection("projects", this.#systemJson.ProjectsTitle, content => {
-            this.#dataJson.Projects.forEach(element => {
+            this.#dataJson.content.Projects.forEach(element => {
                 const div = document.createElement("div");
                 div.classList.add("project_item");
                 div.innerHTML = `
             <div class="project_header">
             <h4 class="project_bloc_title">${element.name}</h4>
-            <p class="project_bloc_date">${new Date(element.date).getFullYear()}</p>
+            <p class="project_bloc_date">${isString(element.date) ? new Date(element.date).getFullYear() : ""}</p>
             </div>
             <p class="project_bloc_description">${element.description}</p>
         `;
@@ -146,7 +169,7 @@
     #generateCvHobbies() {
 
         this.#fillSection("hobbies", this.#systemJson.HobbiesTitle, content => {
-            this.#dataJson.Hobbies.forEach(element => {
+            this.#dataJson.content.Hobbies.forEach(element => {
                 const li = document.createElement("li");
                 li.textContent = element;
                 content.appendChild(li);
@@ -168,6 +191,7 @@
     }
 }
 
-document.addEventListener("DOMContentLoaded", async function () {
-    new ViewerHandler(JSON.parse(localStorage.getItem('json')));
+document.addEventListener("DOMContentLoaded", async function () 
+{
+    new ViewerHandler(JSON.parse(sessionStorage.getItem(CvDataItemKey)));
 })

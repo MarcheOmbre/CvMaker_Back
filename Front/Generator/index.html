@@ -6,21 +6,26 @@
 
     <title>Generator</title>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="../Common/style.css">
     <link rel="stylesheet" href="./style.css">
-    <script src="../Scripts/TypesChecker.js" type="text/javascript"></script>
-    <script src="../Scripts/FilesConverter.js" type="text/javascript"></script>
+    <script src="../Common/Scripts/Constants.js" type="text/javascript"></script>
+    <script src="../Common/Scripts/CheckUtility.js" type="text/javascript"></script>
+    <script src="../Common/Scripts/FilesConverter.js" type="text/javascript"></script>
+    <script src="../Common/Scripts/Communication.js" type="text/javascript"></script>
     <script type="text/javascript" src="./script.js" defer></script>
 
 </HEAD>
 
 <BODY>
 
+<p id="alert"></p>
+
 <div id="form">
 
     <label for="system-language">System language:</label>
     <select id="system-language">
-        <option value="../Languages/en.json">English</option>
-        <option value="../Languages/fr.json">French</option>
+        <option value="../Common/Languages/en.json">English</option>
+        <option value="../Common/Languages/fr.json">French</option>
     </select>
 
     <label for="photo-input">Photo:</label>
@@ -88,7 +93,10 @@
         <button id="add-hobby">Add hobby</button>
     </div>
 
-    <button id="generate_button">Download</button>
+    <div id="buttons">
+        <button id="save_button">Save</button>
+        <button id="view_button">View</button>
+    </div>
 </div>
 
 </BODY>

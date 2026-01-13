@@ -1,3 +1,8 @@
+/* 
+*
+* General 
+*
+*/
 *{
     padding: 0;
     margin: 0;
@@ -5,6 +10,13 @@
 
 body{
     padding : 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+section{
+    width: 100%;
 }
 
 h1{
@@ -38,6 +50,13 @@ h4 {
     margin-bottom: 5px;
 }
 
+/* 
+*
+* Sections 
+*
+*/
+
+/* Inner content */
 li, p, .education_item h4{
     font-family: "Montserrat", sans-serif;
     font-optical-sizing: auto;
@@ -45,6 +64,58 @@ li, p, .education_item h4{
     font-style: normal;
     font-size: 10px;
     line-height: 16px;
+}
+
+/* Separator between horizontal list items, dates... */
+.header_contacts_item + .header_contacts_item, .work_bloc_header p, .education_item .education_bloc_date, .project_header p {
+    padding-left: 10px;
+    border-left: 1px solid darkgray;
+}
+
+section .title-parent{
+    background-color: #ecf3ff;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+    max-width: 100%;
+    margin-top : 4px;
+    margin-bottom : 4px;
+}
+
+/* Space before a list content, avoiding to get the same alignment for texts and lists */
+section .content ul, ul.content{
+    padding-left : 20px;
+}
+
+.work_bloc_header, .education_item, .project_header{
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    justify-items: flex-start;
+    align-items: baseline
+}
+
+.work_item + .work_item, .project_item + .project_item {
+    padding-top: 5px;
+}
+
+#languages ul, #hobbies ul{
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    justify-items: flex-start;
+    align-items: baseline
+}
+
+/* 
+*
+* CV Header 
+*
+*/
+#header{
+    min-height: 100px;
 }
 
 #header_contacts_list{
@@ -69,11 +140,6 @@ li, p, .education_item h4{
     list-style: none;
 }
 
-.header_contacts_item + .header_contacts_item {
-    padding-left: 10px;
-    border-left: 1px solid darkgray;
-}
-
 #header_links_list{
     display: flex;
     flex-direction: row;
@@ -90,47 +156,40 @@ li, p, .education_item h4{
     background-color: #ecf3ff;
 }
 
-section{
-    width: 100%;
+/* 
+*
+* Order
+*
+*/
+
+#header {
+    order: 1;
 }
 
-section .title-parent{
-    background-color: #ecf3ff;
-    padding-top: 3px;
-    padding-bottom: 3px;
-    display: inline-block;
-    text-align: center;
-    width: 100%;
-    max-width: 100%;
-    margin-top : 4px;
-    margin-bottom : 4px;
+#about-me {
+    order: 2;
 }
 
-section .content ul, ul.content{
-    padding-left : 20px;
+#skills{
+    order: 3;
 }
 
-.work_bloc_header, .education_item, .project_header{
-    display: flex;
-    flex-direction: row;    
-    gap: 15px;
-    justify-items: flex-start;
-    align-items: baseline
+#work{
+    order: 5;
 }
 
-.work_bloc_header p, .education_item .education_bloc_date, .project_header p{
-    padding-left: 10px;
-    border-left: 1px solid darkgray;
+#projects{
+    order: 4;
 }
 
-.work_item + .work_item, .project_item + .project_item {
-    padding-top: 5px;
+#education{
+    order: 6;
 }
 
-#languages ul, #hobbies ul{
-    display: flex;
-    flex-direction: row;
-    gap: 30px;
-    justify-items: flex-start;
-    align-items: baseline
+#languages{
+    order: 7;
+}
+
+#hobbies{
+    order: 8;
 }

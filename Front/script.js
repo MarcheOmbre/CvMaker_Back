@@ -1,41 +1,59 @@
-﻿const generateButton = document.getElementById("generate-button");
-const editButton = document.getElementById("edit-button");
-const createButton = document.getElementById("create-button");
-const dataFileInput = document.getElementById("data-file-input");
+﻿const emailInput = document.getElementById("email_input");
+const passwordInput = document.getElementById("password_input");
+const loginButton = document.getElementById("login_button");
+const alert = document.getElementById("alert");
 
-document.addEventListener("DOMContentLoaded", async function () {
+class LoginDto {
+    constructor(email, password) {
+        
+        if(!isMatchingMailPattern(email))
+            throw new Error("Invalid email pattern");
+        
+        if(!isString(password))
+            throw new Error("Password must be a string");
+        
+        if(password === "")
+            throw new Error("Password can't be null");
+        
+        this.email = email;
+        this.password = password;
+    }
+}
+
+document.addEventListener("DOMContentLoaded", async function () 
+{
+    if(checkIsLogged())
+    {
+        location.assign("./Listing/index.html")
+        return;
+    }
     
-    generateButton.disabled = true;
-    editButton.disabled = true;
+    loginButton.onclick = async _ => {
+        
+        if(!isMatchingMailPattern(emailInput.value))
+        {
+            alert.textContent = "Invalid email pattern";
+            return;
+        }
 
-    // Link file input with the open button
-    dataFileInput.oninput = _ => {
-        const hasData = dataFileInput.files !== null && dataFileInput.files.length > 0;
-        generateButton.disabled = !hasData;
-        editButton.disabled = !hasData;
+        if (passwordInput.value === "") {
+            alert.textContent = "Password can't be null";
+            return;
+        }
+
+        loginButton.disabled = true;
+
+        SendRequest("POST", null, null,
+            APILink + "Authentification/Log",
+            new LoginDto(emailInput.value, passwordInput.value),
+            res => {
+                document.cookie = res.responseText;
+                location.assign("./Listing/index.html")
+            },
+            res => {
+                alert.textContent = res.responseText;
+                loginButton.disabled = false;
+            });
     }
 
-    // Link buttons
-    generateButton.onclick = async _ => {
-        
-        localStorage.setItem('json', await new Response(dataFileInput.files[0]).text());
-        window.open("./Viewer/index.html");
-        
-    }
-
-    editButton.onclick = async function(_) {
-        
-        localStorage.setItem('json', await new Response(dataFileInput.files[0]).text());
-        window.open("./Generator/index.html");
-        
-    }
-
-    createButton.onclick = _ => {
-        
-        localStorage.setItem('json', "");
-        dataFileInput.fileInput = null;
-
-        window.open("./Generator/index.html");
-        
-    };
 })
