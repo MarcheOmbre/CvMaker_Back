@@ -1,17 +1,16 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using CvBuilderBack.Models;
-using CvBuilderBack.Repositories;
+using CvBuilderBack.Services.Interfaces;
 using Microsoft.IdentityModel.Tokens;
 
-namespace CvBuilderBack.Helpers;
+namespace CvBuilderBack.Services;
 
-public static class TokenHelper
+public class JwtTokenService : ITokenService
 {
     private const string UserKey = "UserId";
     
-    internal static string CreateToken(IConfiguration configuration,int value, TimeSpan timeSpan)
+    public string CreateToken(IConfiguration configuration, int value, TimeSpan timeSpan)
     {
         var tokenSecretKey = configuration["AppSettings:JWTSecret"] ?? throw new Exception("No JWTSecret not defined");
 
@@ -37,18 +36,5 @@ public static class TokenHelper
 
         // Convert token to string
         return jwtSecurityTokenHandler.WriteToken(jwtSecurityTokenHandler.CreateToken(securityTokenDescriptor));
-    }
-    
-    internal static bool CheckToken(ClaimsPrincipal? claimsPrincipal, IUserRepository userRepository, out int id)
-    {
-        id = -1;
-        
-        var claimsIdentity = claimsPrincipal?.Identity as ClaimsIdentity;
-
-        var idClaims = claimsIdentity?.Claims.FirstOrDefault(x => x.Type == UserKey);
-        if(idClaims is null || !int.TryParse(idClaims.Value, out id))
-            return false;
-        
-        return userRepository.TryGetById<User>(id, out _);
     }
 }

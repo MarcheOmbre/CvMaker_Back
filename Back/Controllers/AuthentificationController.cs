@@ -1,8 +1,9 @@
-﻿using System.Web;
+﻿using CvBuilderBack.Common;
 using CvBuilderBack.Dtos;
-using CvBuilderBack.Helpers;
 using CvBuilderBack.Models;
 using CvBuilderBack.Repositories;
+using CvBuilderBack.Services;
+using CvBuilderBack.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,21 +12,33 @@ namespace CvBuilderBack.Controllers;
 [Authorize]
 [ApiController]
 [Route("[controller]")]
-public class AuthentificationController(IConfiguration configuration, IUserRepository userRepository) : ControllerBase
+public class AuthentificationController : ControllerBase
 {
     private static readonly TimeSpan LoginTokenTimeSpan = new(1, 0, 0, 0);
     private static readonly TimeSpan PasswordForgotTokenTimeSpan = new(0, 0, 5, 0);
 
+    private readonly IConfiguration configuration;
+    private readonly IUserRepository userRepository;
+    private readonly IEmailService emailService = new SmtpEmailService();
+    private readonly IPasswordService passwordService = new Pbkdf2PasswordService();
+    private readonly ITokenService tokenService = new JwtTokenService();
+    private readonly IUserService userService;
 
+    // Add constructor injection
+    public AuthentificationController(IConfiguration configuration, IUserRepository userRepository)
+    {
+        this.configuration = configuration;
+        this.userRepository = userRepository;
+        userService = new AspNetUserService(this);
+    }
+    
+    
     #region Gets
 
     [HttpGet("RefreshToken")]
     public IActionResult RefreshToken()
     {
-        if (!TokenHelper.CheckToken(User, userRepository, out var userId))
-            return Unauthorized();
-
-        return Ok(TokenHelper.CreateToken(configuration, userId, LoginTokenTimeSpan));
+        return Ok(tokenService.CreateToken(configuration, userService.GetId(), LoginTokenTimeSpan));
     }
 
     #endregion
@@ -40,15 +53,11 @@ public class AuthentificationController(IConfiguration configuration, IUserRepos
     [ProducesResponseType(statusCode: StatusCodes.Status200OK, Type = typeof(string))]
     public IActionResult Register(RegisterUserDto registerUserDto)
     {
-        if (!EmailHelper.IsValidEmail(registerUserDto.Email))
-            return BadRequest("The email is not valid");
-        if (string.IsNullOrWhiteSpace(registerUserDto.Password))
-            return BadRequest("Password can't be null");
         if (registerUserDto.Password != registerUserDto.PasswordConfirmation)
             return BadRequest("Passwords don't match");
 
-        var salt = PasswordHelper.GenerateSalt();
-        var passwordHash = PasswordHelper.GetPasswordHash(configuration, registerUserDto.Password, salt);
+        var salt = passwordService.GenerateSalt();
+        var passwordHash = passwordService.GetPasswordHash(configuration, registerUserDto.Password, salt);
 
         var result = userRepository.ExecuteStoreProcedure<int>($"{Constants.AuthentificationSchema}.spUserAdd",
             new Tuple<string, object>("email", registerUserDto.Email),
@@ -73,20 +82,14 @@ public class AuthentificationController(IConfiguration configuration, IUserRepos
     [ProducesResponseType(statusCode: StatusCodes.Status200OK, Type = typeof(string))]
     public IActionResult Log(LogUserDto logUserDto)
     {
-        if (!EmailHelper.IsValidEmail(logUserDto.Email))
-            return BadRequest("The email is not valid");
-
-        if (string.IsNullOrWhiteSpace(logUserDto.Password))
-            return BadRequest("Password can't be null");
-
         var userAuthentification = userRepository.Get<User>(x => x.Email == logUserDto.Email);
         if (userAuthentification != null)
         {
-            var passwordHash = PasswordHelper.GetPasswordHash(configuration, logUserDto.Password,
+            var passwordHash = passwordService.GetPasswordHash(configuration, logUserDto.Password,
                 userAuthentification.PasswordSalt);
 
             if (passwordHash.SequenceEqual(userAuthentification.PasswordHash))
-                return Ok(TokenHelper.CreateToken(configuration, userAuthentification.Id, LoginTokenTimeSpan));
+                return Ok(tokenService.CreateToken(configuration, userAuthentification.Id, LoginTokenTimeSpan));
         }
 
         return BadRequest("User or password incorrect");
@@ -98,20 +101,14 @@ public class AuthentificationController(IConfiguration configuration, IUserRepos
     [ProducesResponseType(statusCode: StatusCodes.Status200OK, Type = typeof(string))]
     public IActionResult ForgotPassword(RequestForgotPasswordDto requestForgotPasswordDto)
     {
-        if (!EmailHelper.IsValidEmail(requestForgotPasswordDto.Email))
-            return BadRequest("The email is not valid");
-
-        if (string.IsNullOrWhiteSpace(requestForgotPasswordDto.PagePath))
-            return BadRequest("Retrieve link can't be null");
-        
         var userAuthentification = userRepository.Get<User>(x => x.Email == requestForgotPasswordDto.Email);
         if (userAuthentification != null)
         {
-            var token = TokenHelper.CreateToken(configuration, userAuthentification.Id, PasswordForgotTokenTimeSpan);
+            var token = tokenService.CreateToken(configuration, userAuthentification.Id, PasswordForgotTokenTimeSpan);
             
             // Send mail
             var link = $"Link : {requestForgotPasswordDto.PagePath}?token={token}";
-            EmailHelper.SendEmail(configuration, requestForgotPasswordDto.Email, "Reset your password", link);
+            emailService.SendEmail(configuration, requestForgotPasswordDto.Email, "Reset your password", link);
         }
 
         return Ok("If the email exists, an email has been sent");
@@ -122,19 +119,11 @@ public class AuthentificationController(IConfiguration configuration, IUserRepos
     [ProducesResponseType(statusCode: StatusCodes.Status200OK, Type = typeof(string))]
     public IActionResult ResetPassword(ResetPasswordDto resetPasswordDto)
     {
-        if (!TokenHelper.CheckToken(User, userRepository, out var id))
-            return Unauthorized();
-        
-        if (string.IsNullOrWhiteSpace(resetPasswordDto.Password))
-            return BadRequest("Password can't be null");
-        if (resetPasswordDto.Password != resetPasswordDto.PasswordConfirmation)
-            return BadRequest("Passwords don't match");
-
-        var salt = PasswordHelper.GenerateSalt();
-        var passwordHash = PasswordHelper.GetPasswordHash(configuration, resetPasswordDto.Password, salt);
+        var salt = passwordService.GenerateSalt();
+        var passwordHash = passwordService.GetPasswordHash(configuration, resetPasswordDto.Password, salt);
 
         var result = userRepository.ExecuteStoreProcedure<int>($"{Constants.AuthentificationSchema}.spUserPasswordReset",
-            new Tuple<string, object>("user", id),
+            new Tuple<string, object>("user", userService.GetId()),
             new Tuple<string, object>("passwordHash", passwordHash),
             new Tuple<string, object>("passwordSalt", salt));
 
@@ -158,11 +147,8 @@ public class AuthentificationController(IConfiguration configuration, IUserRepos
     [ProducesResponseType(statusCode: StatusCodes.Status200OK, Type = typeof(string))]
     public IActionResult Delete()
     {
-        if (!TokenHelper.CheckToken(User, userRepository, out var id))
-            return Unauthorized();
-
         var result = userRepository.ExecuteStoreProcedure<int>($"{Constants.AuthentificationSchema}.spUserDelete", 
-            new Tuple<string, object>("user", id));
+            new Tuple<string, object>("user", userService.GetId()));
         
         var resultCode = result.Length > 0 ? result[0] : -1;
         return resultCode switch

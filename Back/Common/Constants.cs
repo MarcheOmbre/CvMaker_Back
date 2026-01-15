@@ -1,4 +1,4 @@
-﻿namespace CvBuilderBack.Helpers;
+﻿namespace CvBuilderBack.Common;
 
 public static class Constants
 {

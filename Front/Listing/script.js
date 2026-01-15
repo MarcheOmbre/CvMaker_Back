@@ -39,7 +39,7 @@ function addCv(cv) {
             },
             res => {
                 children[0].value = cv.name
-                alert.textContent = res.responseText;
+                alert.textContent = res;
             });
     }
     children[1].onclick = () => {
@@ -54,7 +54,7 @@ function addCv(cv) {
             SendRequest("DELETE", document.cookie, parameters,
                 APILink + `Cv/Delete/`, null,
                 _ => templateClone.remove(),
-                res => alert.textContent = res.responseText);
+                res => alert.textContent = res);
         }
     }
 
@@ -67,12 +67,12 @@ function reloadCvs() {
         {
             cvsParent.innerHTML = "";
   
-            const cvs = JSON.parse(res.responseText);
+            const cvs = JSON.parse(res);
 
             for (const cv of cvs)
                 addCv(cv);
 
-        }, res => alert.textContent = res.responseText);
+        }, res => alert.textContent = res);
 }
 
 document.addEventListener("DOMContentLoaded", async function () {
@@ -91,6 +91,6 @@ document.addEventListener("DOMContentLoaded", async function () {
         SendRequest("PUT", document.cookie, parameters,
             APILink + "Cv/Create", null,
             _ => reloadCvs(),
-            res => alert.textContent = res.responseText)
+            res => alert.textContent = res)
     };
 })

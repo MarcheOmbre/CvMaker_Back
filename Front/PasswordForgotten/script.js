@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             }, res => {
                 retrieveButton.disabled = false;
                 message.color = "red";
-                message.textContent = res.responseText;
+                message.textContent = res;
             }
         )
     }

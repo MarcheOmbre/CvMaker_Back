@@ -1,26 +1,27 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
+using CvBuilderBack.Services.Interfaces;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 
-namespace CvBuilderBack.Helpers;
+namespace CvBuilderBack.Services;
 
-public static class PasswordHelper
+public class Pbkdf2PasswordService : IPasswordService
 {
     private const int Iterations = 100000;
     private const int HashSize = 256 / 8;
     private const int SaltSize = 128 / 8;
 
-    public static byte[] GenerateSalt()
+    public byte[] GenerateSalt()
     {
         var salt = new byte[SaltSize];
         
-        using RandomNumberGenerator rng = RandomNumberGenerator.Create();
+        using var rng = RandomNumberGenerator.Create();
         rng.GetNonZeroBytes(salt);
 
         return salt;
     }
 
-    public static byte[] GetPasswordHash(IConfiguration configuration, string password, byte[] salt)
+    public byte[] GetPasswordHash(IConfiguration configuration, string password, byte[] salt)
     {
         var secretKey = configuration["AppSettings:SecretKey"] ?? throw new Exception("No secret defined");
 

@@ -47,11 +47,11 @@ document.addEventListener("DOMContentLoaded", async function ()
             APILink + "Authentification/Log",
             new LoginDto(emailInput.value, passwordInput.value),
             res => {
-                document.cookie = res.responseText;
+                document.cookie = res;
                 location.assign("./Listing/index.html")
             },
-            res => {
-                alert.textContent = res.responseText;
+            response => {
+                alert.textContent = response;
                 loginButton.disabled = false;
             });
     }

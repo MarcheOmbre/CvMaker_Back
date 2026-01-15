@@ -4,8 +4,8 @@ namespace CvBuilderBack.Dtos;
 
 public class SetCvNameDto
 {
-    public int CvId { get; init; }
+    [Required] public int CvId { get; init; }
     
     [MaxLength(50)]
-    public string Name { get; init; } = string.Empty;
+    [Required] public string Name { get; init; } = string.Empty;
 }

@@ -183,59 +183,59 @@ async function generateJson() {
     jsonObject.image = "";
 
     if (photoInput.files.length > 0 && photoInput.files[0])
-        jsonObject.image = await convertFileToBase64(photoInput.files[0]);
+        jsonObject.image = DOMPurify.sanitize(await convertFileToBase64(photoInput.files[0]));
 
     // Content
     jsonObject.content = "";
 
     const contentObject = {}
-    contentObject.SystemLanguage = systemLanguageSelect.value;
-    contentObject.Name = nameInput.value;
-    contentObject.Profession = professionInput.value;
+    contentObject.SystemLanguage = DOMPurify.sanitize(systemLanguageSelect.value);
+    contentObject.Name = DOMPurify.sanitize(nameInput.value);
+    contentObject.Profession = DOMPurify.sanitize(professionInput.value);
 
-    contentObject.AboutMe = aboutMeInput.value;
+    contentObject.AboutMe = DOMPurify.sanitize(aboutMeInput.value);
 
     contentObject.Contacts = [];
     [...contactsDiv.children].forEach(element => {
         const children = element.children[1].children;
         const type = children[0].selectedIndex;
-        const value = children[1].value;
+        const value = DOMPurify.sanitize(children[1].value);
         contentObject.Contacts.push(new Contact(type, value));
     });
 
     contentObject.Links = [];
     [...linksDiv.children].forEach(element => {
         const children = element.children[1].children;
-        const name = children[0].value;
-        const value = children[1].value;
+        const name = DOMPurify.sanitize(children[0].value);
+        const value = DOMPurify.sanitize(children[1].value);
         contentObject.Links.push(new Link(name, value));
     });
 
     contentObject.WorkBlocs = [];
     [...worksDiv.children].forEach((element) => {
         const children = element.children[1].children;
-        const name = children[1].children[0].value;
-        const corporation = children[3].value;
-        const fromDate = children[5].children[0].value;
-        const toDate = children[5].children[1].value;
-        const description = children[7].value;
+        const name = DOMPurify.sanitize(children[1].children[0].value);
+        const corporation = DOMPurify.sanitize(children[3].value);
+        const fromDate = DOMPurify.sanitize(children[5].children[0].value);
+        const toDate = DOMPurify.sanitize(children[5].children[1].value);
+        const description = DOMPurify.sanitize(children[7].value);
         contentObject.WorkBlocs.push(new WorkBloc(name, corporation, fromDate, toDate, description));
     });
 
     contentObject.EducationBlocs = [];
     [...educationsDiv.children].forEach(element => {
         const children = element.children[1].children;
-        const name = children[0].value;
-        const date = children[1].value;
+        const name = DOMPurify.sanitize(children[0].value);
+        const date = DOMPurify.sanitize(children[1].value);
         contentObject.EducationBlocs.push(new EducationBloc(name, date));
     });
 
     contentObject.Projects = [];
     [...projectsDiv.children].forEach((element, index) => {
         const children = element.children[1].children;
-        const name = children[1].children[0].value;
-        const date = children[3].value;
-        const description = children[4].value;
+        const name = DOMPurify.sanitize(children[1].children[0].value);
+        const date = DOMPurify.sanitize(children[3].value);
+        const description = DOMPurify.sanitize(children[4].value);
 
         contentObject.Projects.push(new Project(name, date, description));
     })
@@ -243,23 +243,22 @@ async function generateJson() {
     contentObject.Languages = [];
     [...languagesDiv.children].forEach(element => {
         const children = element.children[1].children;
-        const name = children[0].value;
+        const name = DOMPurify.sanitize(children[0].value);
         const level = children[1].selectedIndex;
         contentObject.Languages.push(new Language(name, level));
     });
 
     contentObject.Skills = [];
     [...skillsDiv.children].forEach(element => {
-        contentObject.Skills.push(element.children[1].children[0].value);
+        contentObject.Skills.push(DOMPurify.sanitize(element.children[1].children[0].value));
     })
 
     contentObject.Hobbies = [];
     [...hobbiesDiv.children].forEach(element => {
-        contentObject.Hobbies.push(element.children[1].children[0].value);
+        contentObject.Hobbies.push(DOMPurify.sanitize(element.children[1].children[0].value));
     })
 
     jsonObject.content = JSON.stringify(contentObject);
-
     return jsonObject;
 }
 
@@ -279,6 +278,8 @@ function refreshImagePreview() {
     } else {
         photoReader.src = "";
     }
+
+    refreshFrame();
 }
 
 function refreshElementsArrows(movableElementsParent) {
@@ -298,11 +299,13 @@ function encapsulateInMovable(htmlElement) {
         const divParent = template.parentNode;
         divParent.insertBefore(template, template.previousElementSibling);
         refreshElementsArrows(template.parentElement);
+        refreshFrame();
     });
     template.children[0].children[1].addEventListener('click', _ => {
         const divParent = template.parentNode;
         divParent.insertBefore(template, template.nextElementSibling.nextElementSibling);
         refreshElementsArrows(template.parentElement);
+        refreshFrame();
     });
 
     return template;
@@ -312,6 +315,9 @@ function addContact(contactType = 0, contactValue = "") {
 
     const template = document.importNode(contactItemTemplate.content, true).children[0];
     const children = template.children;
+    
+    children[0].onchange = _ => refreshFrame();
+    children[1].oninput = _ => refreshFrame();
 
     systemJson.ContactTypes.forEach(element => {
         const option = document.createElement("option");
@@ -325,7 +331,10 @@ function addContact(contactType = 0, contactValue = "") {
     children[1].value = contactValue;
    
     const encapsulated = encapsulateInMovable(template);
-    children[2].onclick = _ => encapsulated.remove();
+    children[2].onclick = _ => {
+        encapsulated.remove();
+        refreshFrame();
+    }
 
     contactsDiv.append(encapsulated);
     refreshElementsArrows(contactsDiv);
@@ -335,12 +344,19 @@ function addLink(linkName = "", linkValue = "") {
 
     const template = document.importNode(linkItemTemplate.content, true).children[0];
     const children = template.children;
+    
+    children[0].oninput = _ => refreshFrame();
+    children[1].oninput = _ => refreshFrame();
+    
     children[0].value = linkName;
     children[1].value = linkValue;
 
     const encapsulated = encapsulateInMovable(template);
-    children[2].onclick = _ => encapsulated.remove();
-
+    children[2].onclick = _ => {
+        encapsulated.remove();
+        refreshFrame();
+    }
+    
     linksDiv.append(encapsulated);
     refreshElementsArrows(linksDiv);
 }
@@ -349,10 +365,16 @@ function addSkill(skillName = "") {
 
     const template = document.importNode(skillItemTemplate.content, true).children[0];
     const children = template.children;
+    
+    children[0].oninput = _ => refreshFrame();
+    
     children[0].value = skillName;
    
     const encapsulated = encapsulateInMovable(template);
-    children[1].onclick = _ => encapsulated.remove();
+    children[1].onclick = _ => {
+        encapsulated.remove();
+        refreshFrame();
+    }
 
     skillsDiv.append(encapsulated);
     refreshElementsArrows(skillsDiv);
@@ -363,6 +385,13 @@ function addWork(title = "", corporation = "", fromDate = Date.now(), toDate = D
     //Generate from the template
     const templateClone = document.importNode(workItemTemplate.content, true).children[0];
     const children = templateClone.children;
+    
+    children[1].children[0].oninput = _ => refreshFrame();
+    children[3].oninput = _ => refreshFrame();
+    children[5].children[0].onchange = _ => refreshFrame();
+    children[5].children[1].onchange = _ => refreshFrame();
+    children[7].oninput = _ => refreshFrame();
+    
     children[1].children[0].value = title;
     children[3].value = corporation;
     children[5].children[0].value = fromDate.toString();
@@ -371,8 +400,11 @@ function addWork(title = "", corporation = "", fromDate = Date.now(), toDate = D
     worksDiv.append(templateClone);
     
     const encapsulated = encapsulateInMovable(templateClone);
-    children[1].onclick = _ => encapsulated.remove();
-
+    children[1].children[1].onclick = _ => {
+        encapsulated.remove();
+        refreshFrame()
+    }
+    
     worksDiv.append(encapsulated);
     refreshElementsArrows(worksDiv);
 }
@@ -381,11 +413,18 @@ function addEducation(title = "", date = Date.now()) {
 
     const templateClone = document.importNode(educationItemTemplate.content, true).children[0];
     const children = templateClone.children;
+    
+    children[0].oninput = _ => refreshFrame();
+    children[1].onchange = _ => refreshFrame();
+    
     children[0].value = title;
     children[1].value = date.toString();
 
     const encapsulated = encapsulateInMovable(templateClone);
-    children[2].onclick = _ => encapsulated.remove();
+    children[2].onclick = _ => {
+        encapsulated.remove();
+        refreshFrame();
+    }
 
     educationsDiv.append(encapsulated);
     refreshElementsArrows(educationsDiv);
@@ -395,6 +434,10 @@ function addLanguage(level = 0, name = "") {
 
     const templateClone = document.importNode(languageItemTemplate.content, true).children[0];
     const children = templateClone.children;
+    
+    children[0].oninput = _ => refreshFrame();
+    children[1].onchange = _ => refreshFrame();
+    
     children[0].value = name;
 
     systemJson.LanguageLevels.forEach(element => {
@@ -408,8 +451,11 @@ function addLanguage(level = 0, name = "") {
         children[1].selectedIndex = level;
 
     const encapsulated = encapsulateInMovable(templateClone);
-    children[2].onclick = _ => encapsulated.remove();
-
+    children[2].onclick = _ => {
+        encapsulated.remove();
+        refreshFrame()
+    }
+    
     languagesDiv.append(encapsulated);
     refreshElementsArrows(languagesDiv);
 }
@@ -418,12 +464,20 @@ function addProject(title = "", date = Date.now(), description = "") {
 
     const templateClone = document.importNode(projectItemTemplate.content, true).children[0];
     const children = templateClone.children;
+    
+    children[1].children[0].oninput = _ => refreshFrame();
+    children[3].onchange = _ => refreshFrame();
+    children[4].oninput = _ => refreshFrame();
+    
     children[1].children[0].value = title;
     children[3].value = date.toString();
     children[4].value = description;
 
     const encapsulated = encapsulateInMovable(templateClone);
-    children[1].children[1].onclick = _ => encapsulated.remove();
+    children[1].children[1].onclick = _ => {
+        encapsulated.remove();
+        refreshFrame();
+    }
 
     projectsDiv.append(encapsulated);
     refreshElementsArrows(projectsDiv);
@@ -433,15 +487,25 @@ function addHobby(name = "") {
 
     const templateClone = document.importNode(hobbyItemTemplate.content, true).children[0];
     const children = templateClone.children;
+    
+    children[0].oninput = _ => refreshFrame();
     children[0].value = name;
 
     const encapsulated = encapsulateInMovable(templateClone);
-    children[1].onclick = _ => encapsulated.remove();
+    children[1].onclick = _ => {
+        encapsulated.remove();
+        refreshFrame();
+    }
 
     hobbiesDiv.append(encapsulated);
     refreshElementsArrows(hobbiesDiv);
 }
 
+function refreshFrame() 
+{
+    generateJson().then(json =>
+        frame.contentWindow.generateFromJson(json))
+}
 
 document.addEventListener("DOMContentLoaded", async function () {
 
@@ -464,6 +528,12 @@ document.addEventListener("DOMContentLoaded", async function () {
             templateLink.href = "../Common/viewStyle.css";
             templateLink.click();
         }
+        
+        nameInput.oninput = _ => refreshFrame();
+        professionInput.oninput = _ => refreshFrame();
+        aboutMeInput.oninput = _ => refreshFrame();
+        systemLanguageSelect.onchange = _ => refreshFrame();
+        
 
         const saveButton = document.getElementById("save_button");
         saveButton.onclick = _ => {
@@ -476,7 +546,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
             function failed(error) {
                 saveButton.disabled = false;
-                alertElement.textContent = error.responseText;
+                alertElement.textContent = error;
             }
 
             generateJson().then(json => {
@@ -515,11 +585,8 @@ document.addEventListener("DOMContentLoaded", async function () {
         document.body.style.display = "none";
 
         SendRequest("GET", document.cookie, parameters, APILink + `Cv/Get`, null, res => {
-            const file = JSON.parse(res.responseText);
-            importFromJson(file).then(() => 
-                generateJson().then(json => 
-                    frame.contentWindow.generateFromJson(json)))
-            
-        }, res => alertElement.textContent = res.responseText);
+            const file = JSON.parse(res);
+            importFromJson(file).then(refreshFrame);
+        }, res => alertElement.textContent = res);
     }
 )

@@ -1,21 +1,13 @@
 ﻿using System.Net;
 using System.Net.Mail;
 using System.Text.RegularExpressions;
+using CvBuilderBack.Services.Interfaces;
 
-namespace CvBuilderBack.Helpers;
+namespace CvBuilderBack.Services;
 
-public static class EmailHelper
+public class SmtpEmailService : IEmailService
 {
-    public static bool IsValidEmail(string? email)
-    {
-        if(string.IsNullOrWhiteSpace(email)) 
-            return false;
-        
-        var regex = new Regex(@"^[\w!#$%&'*+\-/=?\^_`{|}~]+(\.[\w!#$%&'*+\-/=?\^_`{|}~]+)*@((([\-\w]+\.)+[a-zA-Z]{2,4})|(([0-9]{1,3}\.){3}[0-9]{1,3}))$");
-        return regex.IsMatch(email);
-    }
-    
-    public static void SendEmail(IConfiguration configuration, string email, string subject, string body)
+    public void SendEmail(IConfiguration configuration, string email, string subject, string body)
     {
         var host = configuration["MailSettings:Host"] ?? throw new Exception("No host defined");
         var port  = int.Parse(configuration["MailSettings:Port"] ?? throw new Exception("No port defined"));

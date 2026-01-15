@@ -1,8 +1,10 @@
-﻿namespace CvBuilderBack.Dtos;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace CvBuilderBack.Dtos;
 
 public class GetAllCvsDto
 {
-    public int Id { get; init; }
+    [Required] public int Id { get; init; }
     
-    public string Name { get; init; } = string.Empty;
+    [Required] public string Name { get; init; } = string.Empty;
 }

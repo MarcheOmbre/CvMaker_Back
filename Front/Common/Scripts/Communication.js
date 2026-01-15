@@ -35,27 +35,26 @@ function SendRequest(type, tokenToInject, parameters, link, data, onSucceed, onF
     }
 
     // Create the request
-    const xmlHttp = new XMLHttpRequest();
-    xmlHttp.open(type, link, true);
-    xmlHttp.setRequestHeader("Content-Type", data ? "application/json" : "text/plain; charset=utf-8");
-    
-    // Insert the token if there is one
-    if(isString(tokenToInject) && tokenToInject !== "")
-        xmlHttp.setRequestHeader("Authorization", TokenKey + " " + tokenToInject);
-    
-    xmlHttp.onreadystatechange = function()
-    {
-        if(xmlHttp.readyState !== 4)
-            return;
-        
-        if (xmlHttp.status !== 200)
-        {
-            onFailed(xmlHttp);
-            return;
-        }
+    const options = {
+        method: type,
+        headers: {"Content-Type": data ? "application/json" : "text/plain; charset=utf-8"}
+    };
 
-        onSucceed(xmlHttp);
+    if (tokenToInject) {
+        options.headers["Authorization"] = `Bearer ${tokenToInject}`;
     }
-    
-    xmlHttp.send(JSON.stringify(data));
+
+    if (data) {
+        options.body = JSON.stringify(data);
+    }
+
+    fetch(link, options)
+        .then(response => 
+        {
+            if (!response.ok) 
+                throw response;
+            return response;
+        })
+        .then(response => response.text().then(text => onSucceed(text)))
+        .catch(error => error.text().then(text => { onFailed(text) }));
 }

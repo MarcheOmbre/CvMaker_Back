@@ -84,7 +84,7 @@ li, p, .education-item h4{
 }
 
 /* Separator between horizontal list items, dates... */
-.header_contacts_item + .header_contacts_item, .work_header p, .education-item .education_bloc_date, .project_header p {
+.contact-item + .contact-item, .work_header p, .education-item .education_date, .project_header p {
     padding-left: 10px;
     border-left: 1px solid darkgray;
 }
@@ -135,10 +135,6 @@ section .content ul, ul.content{
     min-height: 100px;
 }
 
-#header_contacts_list{
-    margin-bottom: 5px;
-}
-
 #header_photo{
     float: right;
     width: 100px;
@@ -155,6 +151,7 @@ section .content ul, ul.content{
     align-items: flex-start;
     gap: 15px;
     list-style: none;
+    margin-bottom: 5px;
 }
 
 #header_links_list{

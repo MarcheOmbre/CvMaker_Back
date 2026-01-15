@@ -1,4 +1,4 @@
-﻿using CvBuilderBack.Helpers;
+﻿using CvBuilderBack.Common;
 using CvBuilderBack.Models;
 using Microsoft.EntityFrameworkCore;
 

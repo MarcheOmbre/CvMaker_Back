@@ -1,8 +1,10 @@
-﻿namespace CvBuilderBack.Dtos;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace CvBuilderBack.Dtos;
 
 public class CreateUserDto
 {
-    public int Id { get; init; }
+    [Required] public int Id { get; init; }
 
-    public string Email { get; init; } = string.Empty;
+    [EmailAddress] public string Email { get; init; } = string.Empty;
 }

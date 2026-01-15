@@ -2,6 +2,7 @@
 
 using System.Text;
 using CvBuilderBack.Repositories;
+using CvBuilderBack.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
@@ -47,6 +48,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         ValidateAudience = false,
         ClockSkew = TimeSpan.Zero
     });
+builder.Services.AddScoped<IHtmlSanitizerService, HtmlSanitizerService>();
 
 // Build
 var app = builder.Build();

@@ -4,7 +4,7 @@ namespace CvBuilderBack.Dtos;
 
 public class SetCvContentDto
 {
-    public int CvId { get; init; }
+    [Required] public int CvId { get; init; }
     
     [MaxLength(int.MaxValue)]
     public string Content { get; init; } = string.Empty;

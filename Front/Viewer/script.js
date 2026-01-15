@@ -15,6 +15,7 @@ const hobbiesSection = document.getElementById("hobbies");
 
 const contactItemTemplate = document.getElementById("contact-item_template");
 const linkItemTemplate = document.getElementById("link-item_template");
+const aboutMeTemplate = document.getElementById("about-me_template");
 const skillItemTemplate = document.getElementById("skill-item_template");
 const workItemTemplate = document.getElementById("work-item_template");
 const educationItemTemplate = document.getElementById("education-item_template");
@@ -33,27 +34,27 @@ function fillSection(section, title, fillSection) {
 
 function refreshLanguage(language) {
     if (isString(language))
-        document.documentElement.lang = language;
+        document.documentElement.lang = DOMPurify.sanitize(language);
 }
 
 function refreshTitle(title) {
     if (isString(title))
-        document.title = title;
+        document.title = DOMPurify.sanitize(title);
 }
 
 function refreshName(name) {
     if (isString(name))
-        nameEntry.textContent = name;
+        nameEntry.textContent = DOMPurify.sanitize(name);
 }
 
 function refreshProfession(profession) {
     if (isString(profession))
-        professionEntry.textContent = profession;
+        professionEntry.textContent = DOMPurify.sanitize(profession);
 }
 
 function refreshImage(image) {
     if (isString(image))
-        imageEntry.src = image;
+        imageEntry.src = DOMPurify.sanitize(image);
 }
 
 function refreshContacts(contacts) {
@@ -69,7 +70,7 @@ function refreshContacts(contacts) {
             return;
 
         const templateClone = document.importNode(contactItemTemplate.content, true).children[0];
-        templateClone.textContent = element.value;
+        templateClone.textContent = DOMPurify.sanitize(element.value);
         contactsSection.appendChild(templateClone);
     });
 }
@@ -79,7 +80,7 @@ function refreshLinks(links) {
     if (!links || !Array.isArray(links))
         return;
 
-    contactsSection.innerHTML = "";
+    linksSection.innerHTML = "";
 
     links.forEach(element => {
 
@@ -87,7 +88,7 @@ function refreshLinks(links) {
             return;
 
         const templateClone = document.importNode(linkItemTemplate.content, true).children[0];
-        templateClone.textContent = element.name + ": " + element.value;
+        templateClone.innerHTML = DOMPurify.sanitize(element.name + ": " + element.value);
         linksSection.appendChild(templateClone);
     });
 }
@@ -96,12 +97,14 @@ function refreshAboutMe(title, text) {
     
     if (!isString(title))
         return;
-
+    
     fillSection(aboutMeSection, title, content => {
 
-        const textBloc = document.createElement("p");
-        textBloc.textContent = text;
-        content.appendChild(textBloc);
+        content.innerHTML = "";
+        
+        const templateClone = document.importNode(aboutMeTemplate.content, true).children[0];
+        templateClone.innerHTML = DOMPurify.sanitize(text);
+        content.appendChild(templateClone);
     });
 }
 
@@ -118,7 +121,7 @@ function refreshSkills(title, skills) {
                 return;
 
             const templateClone = document.importNode(skillItemTemplate.content, true).children[0];
-            templateClone.textContent = element;
+            templateClone.textContent = DOMPurify.sanitize(element);
             content.appendChild(templateClone);
         }));
 
@@ -160,10 +163,10 @@ function refreshWorks(title, works) {
 
             const templateClone = document.importNode(workItemTemplate.content, true).children[0];
             const children = templateClone.children;
-            children[0].children[0].textContent = element.name;
-            children[0].children[1].textContent = element.corporation;
-            children[0].children[2].textContent = stringDate;
-            children[1].textContent = element.description;
+            children[0].children[0].textContent = DOMPurify.sanitize(element.name);
+            children[0].children[1].textContent = DOMPurify.sanitize(element.corporation);
+            children[0].children[2].textContent = DOMPurify.sanitize(stringDate);
+            children[1].innerHTML = DOMPurify.sanitize(element.description);
 
             content.appendChild(templateClone);
         })
@@ -185,8 +188,8 @@ function refreshEducations(title, educations) {
 
             const templateClone = document.importNode(educationItemTemplate.content, true).children[0];
             const children = templateClone.children;
-            children[0].textContent = element.name;
-            children[1].textContent = isString(element.date) ? new Date(element.date).getFullYear() : "";
+            children[0].textContent = DOMPurify.sanitize(element.name);
+            children[1].textContent = DOMPurify.sanitize(isString(element.date) ? new Date(element.date).getFullYear() : "");
 
             content.appendChild(templateClone);
         })
@@ -199,15 +202,14 @@ function refreshLanguages(title, languages, languageLevels) {
         return;
 
     languagesSection.children[1].innerHTML = "";
-    
     fillSection(languagesSection, title, content => {
         languages.forEach(element => {
-
+            
             if (!isString(element.name) || !isNumeric(element.level) || element >= languageLevels.length)
                 return;
 
             const templateClone = document.importNode(languageItemTemplate.content, true).children[0];
-            templateClone.textContent = `${element.name} (${languageLevels[element.level]})`;
+            templateClone.textContent = DOMPurify.sanitize(`${element.name} (${languageLevels[element.level]})`);
 
             content.appendChild(templateClone);
         })
@@ -230,9 +232,9 @@ function refreshProjects(title, projects) {
 
             const templateClone = document.importNode(projectItemTemplate.content, true).children[0];
             const children = templateClone.children;
-            children[0].children[0].textContent = element.name;
-            children[0].children[1].textContent = isString(element.date) ? new Date(element.date).getFullYear() : "";
-            children[1].textContent = element.description;
+            children[0].children[0].textContent = DOMPurify.sanitize(element.name);
+            children[0].children[1].textContent = DOMPurify.sanitize(isString(element.date) ? new Date(element.date).getFullYear() : "");
+            children[1].innerHTML = DOMPurify.sanitize(element.description);
             
             content.appendChild(templateClone);
         })
@@ -254,7 +256,7 @@ function refreshHobbies(title, hobbies) {
                 return;
 
             const templateClone = document.importNode(hobbyItemTemplate.content, true).children[0];
-            templateClone.textContent = element;
+            templateClone.textContent = DOMPurify.sanitize(element);
             content.appendChild(templateClone);
         })
     });

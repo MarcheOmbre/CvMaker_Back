@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 if (res.status === 401)
                     alert.textContent = "Unauthorized : the token is invalid";
                 else
-                    alert.textContent = res.responseText;
+                    alert.textContent = res;
             });
     }
 
