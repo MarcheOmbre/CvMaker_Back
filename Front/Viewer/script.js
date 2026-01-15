@@ -61,10 +61,7 @@ function refreshContacts(contacts) {
     if (!contacts || !Array.isArray(contacts))
         return;
 
-    for(const child of contactsSection.children){
-        console.log(child);
-        child.remove();   
-    }
+    contactsSection.innerHTML = "";
 
     contacts.forEach(element => {
 
@@ -81,9 +78,8 @@ function refreshLinks(links) {
 
     if (!links || !Array.isArray(links))
         return;
-    
-    for(const child of contactsSection.children)
-        child.remove();
+
+    contactsSection.innerHTML = "";
 
     links.forEach(element => {
 
@@ -97,7 +93,8 @@ function refreshLinks(links) {
 }
 
 function refreshAboutMe(title, text) {
-    if (!isString(title) || !isString(text))
+    
+    if (!isString(title))
         return;
 
     fillSection(aboutMeSection, title, content => {
@@ -112,10 +109,8 @@ function refreshSkills(title, skills) {
     if (!isString(title) || !skills || !Array.isArray(skills))
         return;
 
-    for(const child of skillsSection.children[1].children)
-        child.remove();
+    skillsSection.children[1].innerHTML = "";
 
-    console.log(skills);
     fillSection(skillsSection, title, content =>
         skills.forEach(element => {
 
@@ -133,8 +128,7 @@ function refreshWorks(title, works) {
     if (!isString(title) || !works || !Array.isArray(works))
         return;
 
-    for(const child of worksSection.children[1].children)
-        child.remove();
+    worksSection.children[1].innerHTML = "";
 
     this.fillSection(worksSection, title, content => {
         works.forEach(element => {
@@ -181,9 +175,8 @@ function refreshEducations(title, educations) {
     if (!isString(title) || !educations || !Array.isArray(educations))
         return;
 
-    for(const child of educationSection.children[1].children)
-        child.remove();
-
+    educationSection.children[1].innerHTML = "";
+    
     fillSection(educationSection, title, content => {
         educations.forEach(element => {
 
@@ -205,8 +198,7 @@ function refreshLanguages(title, languages, languageLevels) {
     if (!isString(title) || !languages || !Array.isArray(languages) || !languageLevels || !Array.isArray(languageLevels))
         return;
 
-    for(const child of languagesSection.children[1].children)
-        child.remove();
+    languagesSection.children[1].innerHTML = "";
     
     fillSection(languagesSection, title, content => {
         languages.forEach(element => {
@@ -228,9 +220,8 @@ function refreshProjects(title, projects) {
     if (!isString(title) || !projects || !Array.isArray(projects))
         return;
 
-    for(const child of projectsSection.children[1].children)
-        child.remove();
-
+    projectsSection.children[1].innerHTML = "";
+    
     fillSection(projectsSection, title, content => {
         projects.forEach(element => {
 
@@ -254,9 +245,8 @@ function refreshHobbies(title, hobbies) {
     if (!isString(title) || !hobbies || !Array.isArray(hobbies))
         return;
 
-    for(const child of hobbiesSection.children[1].children)
-        child.remove();
-
+    hobbiesSection.children[1].innerHTML = "";
+    
     fillSection(hobbiesSection, title, content => {
         hobbies.forEach(element => {
 

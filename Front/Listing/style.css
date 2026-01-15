@@ -31,7 +31,7 @@ body div
     align-items: flex-end;
 }
 
-.cv_element{
+.cv-item{
     display: grid;
     grid-template-columns: auto 50px 50px;
     gap: 5px;

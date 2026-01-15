@@ -94,14 +94,14 @@ async function importFromJson(dataJson) {
     document.body.style.display = "none";
 
     // Clear the fields
-    [...contactsDiv.children].forEach(element => element.remove());
-    [...linksDiv.children].forEach(element => element.remove());
-    [...skillsDiv.children].forEach(element => element.remove());
-    [...worksDiv.children].forEach(element => element.remove());
-    [...educationsDiv.children].forEach(element => element.remove());
-    [...languagesDiv.children].forEach(element => element.remove());
-    [...projectsDiv.children].forEach(element => element.remove());
-    [...hobbiesDiv.children].forEach(element => element.remove());
+    contactsDiv.innerHTML = "";
+    linksDiv.innerHTML = "";
+    skillsDiv.innerHTML = "";
+    worksDiv.innerHTML = "";
+    educationsDiv.innerHTML = "";
+    languagesDiv.innerHTML = "";
+    projectsDiv.innerHTML = "";
+    hobbiesDiv.innerHTML = "";
 
     // Restore the fields
     const contentJson = JSON.parse(dataJson.content) ?? "";
@@ -516,8 +516,10 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         SendRequest("GET", document.cookie, parameters, APILink + `Cv/Get`, null, res => {
             const file = JSON.parse(res.responseText);
-            importFromJson(file);
-            frame.contentWindow.generateFromJson(file);
+            importFromJson(file).then(() => 
+                generateJson().then(json => 
+                    frame.contentWindow.generateFromJson(json)))
+            
         }, res => alertElement.textContent = res.responseText);
     }
 )
