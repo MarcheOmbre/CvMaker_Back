@@ -119,6 +119,9 @@ public class AuthentificationController : ControllerBase
     [ProducesResponseType(statusCode: StatusCodes.Status200OK, Type = typeof(string))]
     public IActionResult ResetPassword(ResetPasswordDto resetPasswordDto)
     {
+        if(resetPasswordDto.Password != resetPasswordDto.PasswordConfirmation)
+            return BadRequest("Passwords don't match");
+        
         var salt = passwordService.GenerateSalt();
         var passwordHash = passwordService.GetPasswordHash(configuration, resetPasswordDto.Password, salt);
 
