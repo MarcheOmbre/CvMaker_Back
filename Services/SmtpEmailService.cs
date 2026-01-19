@@ -14,7 +14,7 @@ public class SmtpEmailService : IEmailService
 
         using var smtpClient = new SmtpClient(host, port);
 
-        var mailApi = configuration["MailSettings:Api"] ?? throw new Exception("No api defined");
+        var mailApi = configuration["MailSettings:ApiKey"] ?? throw new Exception("No api defined");
         var secretMailApi =configuration["MailSettings:SecretKey"] ?? throw new Exception("No secret defined");
         var sender = configuration["MailSettings:Sender"] ?? throw new Exception("No sender defined");
         

@@ -26,7 +26,7 @@ builder.Services.AddCors((options) =>
     });
     options.AddPolicy("ProdCors", (corsBuilder) =>
     {
-        corsBuilder.WithOrigins("https://myProductionSite.com")
+        corsBuilder.WithOrigins("https://green-moss-02220040f.1.azurestaticapps.net")
             .AllowAnyMethod()
             .AllowAnyHeader()
             .AllowCredentials();

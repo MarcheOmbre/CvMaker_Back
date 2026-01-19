@@ -23,7 +23,7 @@ public class Pbkdf2PasswordService : IPasswordService
 
     public byte[] GetPasswordHash(IConfiguration configuration, string password, byte[] salt)
     {
-        var secretKey = configuration["AppSettings:SecretKey"] ?? throw new Exception("No secret defined");
+        var secretKey = configuration["AppSettings:PasswordSecretKey"] ?? throw new Exception("No secret defined");
 
         // Add secret
         var secretKeyPlusSalt = secretKey + Convert.ToBase64String(salt);
