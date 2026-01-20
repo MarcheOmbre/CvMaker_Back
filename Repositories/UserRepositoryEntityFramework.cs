@@ -26,22 +26,22 @@ public class UserRepositoryEntityFramework(IConfiguration configuration) : IUser
     public List<T> GetAll<T>(Expression<Func<T, bool>>? predicate) where T : class
     {
         var dbSet = context.Set<T>();
+        if(!dbSet.Any())
+            return [];
+        
         return predicate == null ? dbSet.ToList() : dbSet.Where(predicate).ToList();
     }
 
-    public bool Update<T1, T2>(int id,  Func<T2, T2?> func) where T1 : class, ICopyable<T2>
+    public bool Update<T>(int id,  Action<T> func) where T : class
     {
-        var dataSet = context.Set<T1>();
+        var dataSet = context.Set<T>();
         var foundData = dataSet.Find(id);
         
         if (foundData == null)
             return false;
         
-        var modifiedData = func(foundData.CopyTo());
-        if(modifiedData == null)
-            return false;
+        func(foundData);
         
-        foundData.CopyFrom(modifiedData);
         return context.Update(foundData).State == EntityState.Modified;
     }
 
@@ -78,5 +78,16 @@ public class UserRepositoryEntityFramework(IConfiguration configuration) : IUser
         return context.Database.SqlQueryRaw<T>(queryString, sqlParameters).ToArray();
     }
     
-    public bool SaveChanges() => context.SaveChanges() > 0;
+    public bool SaveChanges()
+    {
+        try
+        {
+            context.SaveChanges();
+            return true;
+        }
+        catch (Exception)
+        {
+            return false;
+        }
+    }
 }

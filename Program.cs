@@ -3,6 +3,7 @@
 using System.Text;
 using CvBuilderBack.Repositories;
 using CvBuilderBack.Services;
+using CvBuilderBack.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
@@ -35,6 +36,7 @@ builder.Services.AddCors((options) =>
 
 // Add interfaces
 builder.Services.AddScoped<IUserRepository, UserRepositoryEntityFramework>();
+builder.Services.AddScoped<IHtmlSanitizerService, HtmlSanitizerService>();
 
 // Token
 var tokenSecretKey = builder.Configuration["AppSettings:JWTSecret"] ?? throw new Exception("No JWTSecret found");
@@ -48,7 +50,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         ValidateAudience = false,
         ClockSkew = TimeSpan.Zero
     });
-builder.Services.AddScoped<IHtmlSanitizerService, HtmlSanitizerService>();
 
 // Build
 var app = builder.Build();

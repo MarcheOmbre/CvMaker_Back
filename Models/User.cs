@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using CvBuilderBack.Common;
 
 namespace CvBuilderBack.Models;
 
@@ -6,8 +7,8 @@ public class User
 {
     public int Id { get; init; }
     
-    [MaxLength(50)]
-    public string Email { get; init; } = string.Empty;
+    [DisplayFormat(ConvertEmptyStringToNull = false)]
+    [MaxLength(Constants.MaxEmailLength)] public string Email { get; init; } = string.Empty;
     
     public byte[] PasswordHash { get; init; } = [];
     

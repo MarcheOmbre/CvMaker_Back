@@ -10,7 +10,7 @@ public interface IUserRepository
     
     public List<T> GetAll<T>(Expression<Func<T, bool>>? predicate) where T : class;
 
-    public bool Update<T1, T2>(int id, Func<T2, T2?> func) where T1 : class, ICopyable<T2>;
+    public bool Update<T>(int id, Action<T> func) where T : class;
     
     public bool Add<T>(T? data) where T : class;
 
