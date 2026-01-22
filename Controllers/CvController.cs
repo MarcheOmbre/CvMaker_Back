@@ -138,7 +138,11 @@ public class CvController : ControllerBase
         if (!string.IsNullOrEmpty(cv.Skills))
         {
             skills.AddRange((JsonSerializer.Deserialize<List<Skill>>(cv.Skills) ?? [])
-                .Select(skill => new Skill { Name = htmlSanitizerService.Sanitize(skill.Name) }));
+                .Select(skill => new Skill
+                {
+                    Name = htmlSanitizerService.Sanitize(skill.Name),
+                    Level = skill.Level
+                }));
         }
         cvDto.Skills = skills;
 
@@ -213,7 +217,6 @@ public class CvController : ControllerBase
             cv.SystemLanguage = htmlSanitizerService.Sanitize(cvDto.SystemLanguage);
             cv.Image = htmlSanitizerService.Sanitize(cvDto.Image);
             cv.Title = htmlSanitizerService.Sanitize(cvDto.Title);
-            Console.WriteLine(cvDto.Title + " " + cv.Title);
             cv.Profession = htmlSanitizerService.Sanitize(cvDto.Profession);
             cv.AboutMe = htmlSanitizerService.Sanitize(cvDto.AboutMe);
 
@@ -251,7 +254,7 @@ public class CvController : ControllerBase
                 language.Name = htmlSanitizerService.Sanitize(language.Name);
             cv.Languages = JsonSerializer.Serialize(cvDto.Languages);
             
-            foreach (var skill in cvDto.Skills) 
+            foreach (var skill in cvDto.Skills)
                 skill.Name = htmlSanitizerService.Sanitize(skill.Name);
             cv.Skills = JsonSerializer.Serialize(cvDto.Skills);
             

@@ -107,8 +107,8 @@ public class AuthentificationController : ControllerBase
             var token = tokenService.CreateToken(configuration, userAuthentification.Id, PasswordForgotTokenTimeSpan);
             
             // Send mail
-            var link = $"Link : {requestForgotPasswordDto.PagePath}?token={token}";
-            emailService.SendEmail(configuration, requestForgotPasswordDto.Email, "Reset your password", link);
+            var resetLink = $"{requestForgotPasswordDto.PagePath}?token={token}";
+            emailService.SendRetrievePasswordEmail(configuration, requestForgotPasswordDto.Email, resetLink);
         }
 
         return Ok("If the email exists, an email has been sent");
