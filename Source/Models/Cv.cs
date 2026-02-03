@@ -40,6 +40,15 @@ public class Cv
     [MaxLength(Constants.MaxFileSize)] public string CustomCss { get; set; } = string.Empty;
 
     
+    public static bool SetName(Cv cv, string name)
+    {
+        if(cv.Name == name)
+            return false;
+        
+        cv.Name = name;
+        return true;
+    }
+    
     public static Cv Duplicate(Cv cv)
     {
         ArgumentNullException.ThrowIfNull(cv);

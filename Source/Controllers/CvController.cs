@@ -30,7 +30,6 @@ public class CvController : ControllerBase
     
     private bool HasSpace(int userId) => userRepository.GetAll<UserCvJoin>(u => u.UserId == userId).Count < Constants.MaxCvCount;
 
-
     #region Gets
 
     [HttpGet("GetAll")]
@@ -97,10 +96,9 @@ public class CvController : ControllerBase
         if(!userRepository.TryGetById<Cv>(setCvNameDto.CvId, out var cv) || cv is null)
             return BadRequest("Cv not found");
         
-        if(cv.Name == setCvNameDto.Name)
+        if(!Cv.SetName(cv, setCvNameDto.Name))
             return Ok("Name already set");
-        
-        cv.Name = setCvNameDto.Name;
+
         if (!userRepository.SaveChanges())
             return BadRequest("An error occured while updating the cv");
 

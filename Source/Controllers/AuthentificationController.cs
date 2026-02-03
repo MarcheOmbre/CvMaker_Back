@@ -24,6 +24,10 @@ public class AuthentificationController : ControllerBase
     private readonly ITokenService tokenService = new JwtTokenService();
     private readonly IUserService userService;
 
+
+    private string PasswordSecretKey => configuration["AppSettings:PasswordSecretKey"] ?? throw new Exception("No secret defined");
+    private string JwtSecret => configuration["AppSettings:JWTSecret"] ?? throw new Exception("No JWTSecret not defined");
+
     // Add constructor injection
     public AuthentificationController(IConfiguration configuration, IUserRepository userRepository)
     {
@@ -38,7 +42,7 @@ public class AuthentificationController : ControllerBase
     [HttpGet("RefreshToken")]
     public IActionResult RefreshToken()
     {
-        return Ok(tokenService.CreateToken(configuration, userService.GetId(), LoginTokenTimeSpan));
+        return Ok(tokenService.CreateToken(JwtSecret, userService.GetId(), LoginTokenTimeSpan));
     }
 
     #endregion
@@ -57,7 +61,7 @@ public class AuthentificationController : ControllerBase
             return BadRequest("Passwords don't match");
 
         var salt = passwordService.GenerateSalt();
-        var passwordHash = passwordService.GetPasswordHash(configuration, registerUserDto.Password, salt);
+        var passwordHash = passwordService.GetPasswordHash(PasswordSecretKey, registerUserDto.Password, salt);
 
         var result = userRepository.ExecuteStoreProcedure<int>($"{Constants.AuthentificationSchema}.spUserAdd",
             new Tuple<string, object>("email", registerUserDto.Email),
@@ -85,11 +89,11 @@ public class AuthentificationController : ControllerBase
         var userAuthentification = userRepository.Get<User>(x => x.Email == logUserDto.Email);
         if (userAuthentification != null)
         {
-            var passwordHash = passwordService.GetPasswordHash(configuration, logUserDto.Password,
+            var passwordHash = passwordService.GetPasswordHash(PasswordSecretKey, logUserDto.Password,
                 userAuthentification.PasswordSalt);
 
             if (passwordHash.SequenceEqual(userAuthentification.PasswordHash))
-                return Ok(tokenService.CreateToken(configuration, userAuthentification.Id, LoginTokenTimeSpan));
+                return Ok(tokenService.CreateToken(JwtSecret, userAuthentification.Id, LoginTokenTimeSpan));
         }
 
         return BadRequest("User or password incorrect");
@@ -104,7 +108,7 @@ public class AuthentificationController : ControllerBase
         var userAuthentification = userRepository.Get<User>(x => x.Email == requestForgotPasswordDto.Email);
         if (userAuthentification != null)
         {
-            var token = tokenService.CreateToken(configuration, userAuthentification.Id, PasswordForgotTokenTimeSpan);
+            var token = tokenService.CreateToken(JwtSecret, userAuthentification.Id, PasswordForgotTokenTimeSpan);
             
             // Send mail
             var resetLink = $"{requestForgotPasswordDto.PagePath}?token={token}";
@@ -123,7 +127,7 @@ public class AuthentificationController : ControllerBase
             return BadRequest("Passwords don't match");
         
         var salt = passwordService.GenerateSalt();
-        var passwordHash = passwordService.GetPasswordHash(configuration, resetPasswordDto.Password, salt);
+        var passwordHash = passwordService.GetPasswordHash(PasswordSecretKey, resetPasswordDto.Password, salt);
 
         var result = userRepository.ExecuteStoreProcedure<int>($"{Constants.AuthentificationSchema}.spUserPasswordReset",
             new Tuple<string, object>("user", userService.GetId()),

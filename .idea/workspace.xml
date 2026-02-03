@@ -5,33 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="329dc7dc-9203-4531-9138-69e17ad496cc" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Back/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Back/Controllers/AuthentificationController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Back/Controllers/UserController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Back/Dtos/CreateUserDto.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Back/Dtos/UserLoginDto.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Back/Dtos/UserRegistrationDto.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Back/Models/AuthentificationUser.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Back/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Generator/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Generator/script.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Generator/style.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Languages/en.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Languages/fr.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scripts/FilesConverter.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scripts/TypesChecker.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Viewer/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Viewer/script.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Viewer/style.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/script.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="EmbeddingIndexingInfo">
+    <option name="cachedIndexableFilesCount" value="177" />
+    <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -52,12 +35,12 @@
     &quot;assignee&quot;: &quot;MarcheOmbre&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/MarcheOmbre/CvMaker.git&quot;,
-    &quot;accountId&quot;: &quot;f3e2a88e-f329-4a26-b3c7-631f1d414a0f&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/MarcheOmbre/CvMaker_Back.git",
+    "accountId": "5a35e475-2a94-4084-a0eb-2a4a252eb715"
   }
-}</component>
+}]]></component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$USER_HOME$/Desktop/Cvs/CV_FR_Fullstack_Data.json" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$USER_HOME$/Downloads/CV_data (14).json" root0="FORCE_HIGHLIGHTING" />
@@ -76,6 +59,10 @@
     <setting file="mock://D:/Autres/Projets/CV Builder/Languages/en.json" root0="FORCE_HIGHLIGHTING" />
     <setting file="mock://D:/Autres/Projets/CV Builder/Languages/fr.json" root0="FORCE_HIGHLIGHTING" />
   </component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
@@ -85,27 +72,32 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "dart.analysis.tool.window.visible": "false",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "junie.onboarding.icon.badge.shown": "true",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "show.migrate.to.gradle.popup": "false",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="329dc7dc-9203-4531-9138-69e17ad496cc" name="Changes" comment="" />
@@ -130,6 +122,7 @@
       <workItem from="1767628229066" duration="1846000" />
       <workItem from="1767696195293" duration="167000" />
       <workItem from="1767872000992" duration="18734000" />
+      <workItem from="1770108071628" duration="95000" />
     </task>
     <task id="LOCAL-00001" summary="First commit&#10;&#10;- Add multilingual support with English (`en.json`) and French (`fr.json`) language files.  &#10;- Create a `Generator` for building CVs, supporting photo, name, profession, contacts, links, about me, skills, work, education, languages, projects, and hobbies.  &#10;- Develop a `Viewer` to display the generated CV.  &#10;- Include reusable utilities like `FilesConverter.js` for base64 conversion of files.  &#10;- Structured project with modular, scalable HTML, CSS, and JavaScript files.">
       <option name="closed" value="true" />
