@@ -161,20 +161,38 @@ public class CvDto
     }
     
     
-    public void InjectInto(Cv cv, IHtmlSanitizerService htmlSanitizerService)
+    public void InjectModifiedFieldsInto(Cv cv, IHtmlSanitizerService htmlSanitizerService)
     {
         ArgumentNullException.ThrowIfNull(cv);
 
-        cv.SystemLanguage = htmlSanitizerService.Sanitize(SystemLanguage);
-        cv.Name = htmlSanitizerService.Sanitize(Name);
-        cv.Image = htmlSanitizerService.Sanitize(Image);
-        cv.Title = htmlSanitizerService.Sanitize(Title);
-        cv.Profession = htmlSanitizerService.Sanitize(Profession);
-        cv.AboutMe = htmlSanitizerService.Sanitize(AboutMe);
+        var systemLanguage = htmlSanitizerService.Sanitize(SystemLanguage);
+        if (cv.SystemLanguage != systemLanguage) cv.SystemLanguage = systemLanguage;
+
+        var name = htmlSanitizerService.Sanitize(Name);
+        if (cv.Name != name) 
+            cv.Name = name;
+
+        var image = htmlSanitizerService.Sanitize(Image);
+        if (cv.Image != image) 
+            cv.Image = image;
+
+        var title = htmlSanitizerService.Sanitize(Title);
+        if (cv.Title != title) 
+            cv.Title = title;
+
+        var profession = htmlSanitizerService.Sanitize(Profession);
+        if (cv.Profession != profession) 
+            cv.Profession = profession;
+
+        var aboutMe = htmlSanitizerService.Sanitize(AboutMe);
+        if (cv.AboutMe != aboutMe) 
+            cv.AboutMe = aboutMe;
 
         foreach (var contact in Contacts)
             contact.Value = htmlSanitizerService.Sanitize(contact.Value);
-        cv.Contacts = JsonSerializer.Serialize(Contacts);
+        var contacts = JsonSerializer.Serialize(Contacts);
+        if (cv.Contacts != contacts) 
+            cv.Contacts = contacts;
 
         foreach (var link in Links)
         {
@@ -182,7 +200,9 @@ public class CvDto
             link.Url = htmlSanitizerService.Sanitize(link.Url);
         }
 
-        cv.Links = JsonSerializer.Serialize(Links);
+        var links = JsonSerializer.Serialize(Links);
+        if (cv.Links != links) 
+            cv.Links = links;
 
         foreach (var work in Works)
         {
@@ -191,11 +211,15 @@ public class CvDto
             work.Description = htmlSanitizerService.Sanitize(work.Description);
         }
 
-        cv.Works = JsonSerializer.Serialize(Works);
+        var works = JsonSerializer.Serialize(Works);
+        if (cv.Works != works) 
+            cv.Works = works;
 
         foreach (var education in Educations)
             education.Title = htmlSanitizerService.Sanitize(education.Title);
-        cv.Educations = JsonSerializer.Serialize(Educations);
+        var educations = JsonSerializer.Serialize(Educations);
+        if (cv.Educations != educations) 
+            cv.Educations = educations;
 
         foreach (var project in Projects)
         {
@@ -203,21 +227,34 @@ public class CvDto
             project.Description = htmlSanitizerService.Sanitize(project.Description);
         }
 
-        cv.Projects = JsonSerializer.Serialize(Projects);
+        var projects = JsonSerializer.Serialize(Projects);
+        if (cv.Projects != projects) 
+            cv.Projects = projects;
 
         foreach (var language in Languages)
             language.Name = htmlSanitizerService.Sanitize(language.Name);
-        cv.Languages = JsonSerializer.Serialize(Languages);
+        var languages = JsonSerializer.Serialize(Languages);
+        if (cv.Languages != languages) 
+            cv.Languages = languages;
 
         foreach (var skill in Skills)
             skill.Name = htmlSanitizerService.Sanitize(skill.Name);
-        cv.Skills = JsonSerializer.Serialize(Skills);
+        var skills = JsonSerializer.Serialize(Skills);
+        if (cv.Skills != skills) 
+            cv.Skills = skills;
 
         foreach (var hobby in Hobbies)
             hobby.Name = htmlSanitizerService.Sanitize(hobby.Name);
-        cv.Hobbies = JsonSerializer.Serialize(Hobbies);
+        var hobbies = JsonSerializer.Serialize(Hobbies);
+        if (cv.Hobbies != hobbies) 
+            cv.Hobbies = hobbies;
 
-        cv.CustomHtml = htmlSanitizerService.Sanitize(CustomHtml);
-        cv.CustomCss = htmlSanitizerService.Sanitize(CustomCss);
+        var customHtml = htmlSanitizerService.Sanitize(CustomHtml);
+        if (cv.CustomHtml != customHtml) 
+            cv.CustomHtml = customHtml;
+
+        var customCss = htmlSanitizerService.Sanitize(CustomCss);
+        if (cv.CustomCss != customCss) 
+            cv.CustomCss = customCss;
     }
 }

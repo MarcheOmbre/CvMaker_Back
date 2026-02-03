@@ -9,8 +9,6 @@ public interface IUserRepository
     public T? Get<T>(Expression<Func<T, bool>>? predicate) where T : class;
     
     public List<T> GetAll<T>(Expression<Func<T, bool>>? predicate) where T : class;
-
-    public bool Update<T>(int id, Action<T> func) where T : class;
     
     public bool Add<T>(T? data) where T : class;
 
@@ -18,5 +16,7 @@ public interface IUserRepository
 
     public T[] ExecuteStoreProcedure<T>(string storedProcedure, params Tuple<string, object>[] parameters);
 
+    public string[] GetModifiedColumns<T>(int id, T data);
+    
     public bool SaveChanges();
 }

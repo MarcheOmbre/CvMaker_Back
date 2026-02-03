@@ -93,9 +93,15 @@ public class CvController : ControllerBase
     {
         if (!HasRight(userService.GetId(), setCvNameDto.CvId))
             return Unauthorized();
-
-        if (!userRepository.Update<Cv>(setCvNameDto.CvId, cv => cv.Name = setCvNameDto.Name)
-            || !userRepository.SaveChanges())
+        
+        if(!userRepository.TryGetById<Cv>(setCvNameDto.CvId, out var cv) || cv is null)
+            return BadRequest("Cv not found");
+        
+        if(cv.Name == setCvNameDto.Name)
+            return Ok("Name already set");
+        
+        cv.Name = setCvNameDto.Name;
+        if (!userRepository.SaveChanges())
             return BadRequest("An error occured while updating the cv");
 
         return Ok("Updated");
@@ -109,10 +115,17 @@ public class CvController : ControllerBase
         if (!HasRight(userService.GetId(), cvDto.Id))
             return Unauthorized();
         
+        if(!userRepository.TryGetById<Cv>(cvDto.Id, out var cv) || cv is null)
+            return BadRequest("Cv not found");
         
-        if (!userRepository.Update<Cv>(cvDto.Id, cv => cvDto.InjectInto(cv, htmlSanitizerService)) || !userRepository.SaveChanges())
-            return BadRequest("An error occured while updating the cv");
-
+        cvDto.InjectModifiedFieldsInto(cv, htmlSanitizerService);
+        
+        if(userRepository.GetModifiedColumns(cvDto.Id, cv).Length <= 0)
+            return Ok("No changes");
+        
+        if(!userRepository.SaveChanges())
+            return BadRequest("An error occured while saving changes");
+        
         return Ok("Updated");
     }
 

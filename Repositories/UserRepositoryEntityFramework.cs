@@ -32,19 +32,6 @@ public class UserRepositoryEntityFramework(IConfiguration configuration) : IUser
         return predicate == null ? dbSet.ToList() : dbSet.Where(predicate).ToList();
     }
 
-    public bool Update<T>(int id,  Action<T> func) where T : class
-    {
-        var dataSet = context.Set<T>();
-        var foundData = dataSet.Find(id);
-        
-        if (foundData == null)
-            return false;
-        
-        func(foundData);
-        
-        return context.Update(foundData).State == EntityState.Modified;
-    }
-
     public bool Add<T>(T? data) where T : class
     {
         if (data is null)
@@ -77,7 +64,16 @@ public class UserRepositoryEntityFramework(IConfiguration configuration) : IUser
         
         return context.Database.SqlQueryRaw<T>(queryString, sqlParameters).ToArray();
     }
-    
+
+    public string[] GetModifiedColumns<T>(int id, T data)
+    {
+        if(data is null)
+            return [];
+        
+        var dbEntityEntry = context.Entry(data);
+        return dbEntityEntry.Properties.Where(p => p.IsModified).Select(p => p.Metadata.Name).ToArray();
+    }
+
     public bool SaveChanges()
     {
         try
